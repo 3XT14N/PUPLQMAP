@@ -1,0 +1,84 @@
+body {
+    font-size: 28px;
+    margin: 0; /* Add margin 0 to reset default margin */
+}
+
+.header {
+    width: 100%; /* Set the header to occupy the full width */
+    background-image: url("Pictures/pup.jpg");
+    color: white;
+    padding: 10px;
+    background-repeat: no-repeat;
+}
+
+.stick {
+    border: solid 1px;
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color: #800000; /* Maroon color */
+}
+
+.stick:hover {
+    background-color: #000000; /* Black color */
+}
+
+.stick li {
+    display: inline-block;
+}
+
+.stick ul {
+    font-size: medium;
+    list-style: none;
+    margin: 30px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.stick li a {
+    color: white;
+    text-decoration-line: none;
+    font: 1em sans-serif;
+}
+
+/* Add style for the navigation links inside the header */
+.header ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: space-around;
+}
+
+.header li {
+    display: inline-block;
+}
+
+.header li a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+}
+
+.header li a:hover {
+    background-color: #111;
+    border-radius: 10px;
+}
+
+.active {
+    background-color: #4CAF50;
+}
+
+section {
+    padding: 50px;
+    color: white;
+}
+
+/* Add some space between the sections */
+section + section {
+    margin-top: 30px;
+}
+p,h2{
+    color: #000000;
+}

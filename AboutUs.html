@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>About Us</title>
+	<link href="Design/AboutUs.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+	<nav class="navbar">
+		<ul>
+		  <li><a href="HomePage.html">Home</a></li>
+		  <li><a href="PUPMap.html">Map</a></li>
+		  <li><a href="MAP.html">Location</a></li>
+		  <li style="float: right;"><a class="active" href="#About Us">About Us</a></li>
+		</ul>
+	  </nav>
+<div class="container">
+	
+	<div class="contents-wraper">
+		
+		<section class="header"><h1>About Us</h1></section>
+
+		<section class="testRow">
+			<div class="testItem active">
+				<img src="Pictures/PUPlogo.png">
+				<p>Polytechnic University of the Philippines (PUP) 
+					is a premier state university in the Philippines, 
+					renowned for its commitment to providing accessible 
+					and quality education to a diverse student population. 
+					Established in 1904, PUP has a long and storied history, 
+					making it one of the country's oldest and most respected 
+					educational institutions.</p>
+			</div>
+
+			<div class="testItem">
+				<img src="Pictures/mission.jpg">
+				<h3>"MISSION"</h3>
+				<p>PUP's mission is to nurture the intellectual, 
+					social, ethical, and spiritual dimensions of individuals 
+					by providing them with a well-rounded education. 
+					The university aims to produce competent and socially responsible 
+					graduates who can contribute significantly to the nation's 
+					progress and development.</p>
+			</div>
+
+			<div class="testItem">
+				<img src="Pictures/vision.png">
+				<h3>"VISSION"</h3>
+				<p>PUP envisions becoming a globally recognized center 
+					of excellence in higher education, distinguished for 
+					its innovative programs, cutting-edge research, 
+					and transformative impact on society. It aspires to be 
+					a leading force in shaping the future of education in the 
+					Philippines</p>
+			</div>
+
+			<div class="testItem">
+				<img src="Pictures/director.jpg">
+				<h3>RUFO N. BUEZA, MPA</h3>
+				<h4>Director and Head, Academic Programs</h4>
+				<a href="AboutUs/director.html" class="btn">View More</a>
+			</div>
+
+			<div class="testItem">
+				<img src="Pictures/christian.jpg">
+				<h3>CHRISTIAN P. BOBADILLA</h3>
+				<h4>Website Programmer</h4>
+				<a href="AboutUs/Christian.html" class="btn">View More</a>
+			</div>
+
+			<div class="testItem">
+				<img src="Pictures/justine.jpg">
+				<h3>JUSTINE LUKE L. BLASURCA</h3>
+				<h4>Website Programmer</h4>
+				<a href="AboutUs/justine.html" class="btn">View More</a>
+			</div>
+
+			<div class="testItem">
+				<img src="Pictures/rj.jpg">
+				<h3>RJ FLORENZ G. APACILE</h3>
+				<h4>Website Programmer</h4>
+				<a href="AboutUs/rj.html" class="btn">View More</a>
+			</div>
+
+		</section>
+
+		<section class="indicators">
+			<div class="dot active" attr='0' onclick="switchTest(this)"></div>
+			<div class="dot" attr='1' onclick="switchTest(this)"></div>
+			<div class="dot" attr='2' onclick="switchTest(this)"></div>
+			<div class="dot" attr='3' onclick="switchTest(this)"></div>
+			<div class="dot" attr='4' onclick="switchTest(this)"></div>
+			<div class="dot" attr='5' onclick="switchTest(this)"></div>
+			<div class="dot" attr='6' onclick="switchTest(this)"></div>
+		</section>
+
+	</div>
+</div>
+
+<script type="text/javascript">
+	
+	// Access the testimonials
+	let testSlide = document.querySelectorAll('.testItem');
+	// Access the indicators
+	let dots = document.querySelectorAll('.dot');
+
+	var counter = 0;
+
+	// Add click event to the indicators
+	function switchTest(currentTest){
+		currentTest.classList.add('active');
+		var testId = currentTest.getAttribute('attr');
+		if(testId > counter){
+			testSlide[counter].style.animation = 'next1 0.5s ease-in forwards';
+			counter = testId;
+			testSlide[counter].style.animation = 'next2 0.5s ease-in forwards';
+		}
+		else if(testId == counter){return;}
+		else{
+			testSlide[counter].style.animation = 'prev1 0.5s ease-in forwards';
+			counter = testId;
+			testSlide[counter].style.animation = 'prev2 0.5s ease-in forwards';
+		}
+		indicators();
+	}
+
+	// Add and remove active class from the indicators
+	function indicators(){
+		for(i = 0; i < dots.length; i++){
+			dots[i].className = dots[i].className.replace(' active', '');
+		}
+		dots[counter].className += ' active';
+	}
+
+	// Code for auto sliding
+	function slideNext(){
+		testSlide[counter].style.animation = 'next1 0.5s ease-in forwards';
+		if(counter >= testSlide.length - 1){
+			counter = 0;
+		}
+		else{
+			counter++;
+		}
+		testSlide[counter].style.animation = 'next2 0.5s ease-in forwards';
+		indicators();
+	}
+
+
+	// Stop auto sliding when mouse is over the indicators
+	const container = document.querySelector('.indicators');
+	container.addEventListener('mouseover', pause);
+	function pause(){
+		clearInterval(deleteInterval);
+	}
+
+	// Resume sliding when mouse is out of the indicators
+	container.addEventListener('mouseout', autoSliding);
+
+</script>
+</body>
+</html>

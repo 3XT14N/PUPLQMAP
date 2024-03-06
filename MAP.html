@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="icon" type="image/png" href="pictures/PUPlogo.png"/>
+    <title>Pup LQ Branch</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="Design/MAP.css">
+    <!-- Add Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+</head>
+<body>
+    <nav class="navbar">
+        <ul>
+          <li><a href="HomePage.html">Home</a></li>
+          <li><a href="PUPMap.html">Map</a></li>
+          <li><a class="active" href="MAP.html">Location</a></li>
+          <li style="float: right;"><a href="AboutUs.html">About Us</a></li>
+        </ul>
+      </nav><br><br><br>
+      <h1>PUP Lopez Quezon Branch Location</h1>
+    <div id="map"></div>
+    
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+    <script>
+        // Define building data (building name, description, details, and history)
+        var buildings = [
+            {
+                name: "Building B",
+                description: "Building B is the academic building.",
+                details: "It contains classrooms, laboratories, and faculty offices.",
+                history: "Building B was built in 2010 to accommodate the growing number of students.",
+                latitude: 13.8808,
+                longitude: 122.2599
+            }
+            // Add more buildings as needed
+        ];
+
+        // Initialize the map
+        var map = L.map('map').setView([13.8808, 122.2599], 15);
+
+        // Add the tile layer
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
+            maxZoom: 18,
+        }).addTo(map);
+
+        // Create markers and info windows for each building
+        buildings.forEach(function(building) {
+            var marker = L.marker([building.latitude, building.longitude]).addTo(map);
+
+            var content = '<h3>' + building.name + '</h3><p>' + building.description + '</p><p><strong>Details:</strong> ' + building.details + '</p><p><strong>History:</strong> ' + building.history + '</p>';
+            
+            marker.bindPopup(content);
+        });
+
+        // Get user's location using Geolocation API
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(onLocationFound, onLocationError);
+        } else {
+            alert("Geolocation is not supported by this browser.");
+        }
+
+        function onLocationFound(position) {
+            var userLatitude = position.coords.latitude;
+            var userLongitude = position.coords.longitude;
+
+            var radius = position.coords.accuracy / 2;
+
+            L.marker([userLatitude, userLongitude]).addTo(map).bindPopup("You are within " + radius + " meters from this point").openPopup();
+
+            L.circle([userLatitude, userLongitude], radius).addTo(map);
+
+            // Add routing control
+            L.Routing.control({
+                waypoints: [
+                    L.latLng(userLatitude, userLongitude),
+                    L.latLng(13.8808, 122.2599) // Destination coordinates (Building B)
+                ],
+                routeWhileDragging: true
+            }).addTo(map);
+        }
+
+        function onLocationError(error) {
+            alert("Failed to get your location: " + error.message);
+        }
+    </script>
+</body>
+</html>

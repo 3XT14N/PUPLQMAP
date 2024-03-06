@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="Design/PUPMap.css" rel="stylesheet" type="text/css">
+  <link rel="icon" type="image/png" href="Pictures/PUPlogo.png"/>
+    <title>Pup LQ Branch</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+  <nav class="navbar">
+    <ul>
+      <li><a href="HomePage.html">Home</a></li>
+      <li><a class="active" href="PUPMap.html">Map</a></li>
+      <li><a href="MAP.html">Location</a></li>
+      <li style="float: right;"><a href="AboutUs.html">About Us</a></li>
+    </ul>
+  </nav>
+
+  <div id="map">
+    <div class="PUP">
+      <h1>PUP Lopez Quezon Branch Map</h1>
+    </div>
+    <div class="map-container">
+      <div class="box PUPMAPs">
+        <img src="Pictures/PUPMap1-Recovered.jpg" alt="Map" usemap="#building-map">
+      </div>
+    </div>
+    <div class="popup" id="popup1">
+      <h3>Engineering Building</h3>
+      <img src="Pictures/engineeringbuilding1.jpg">
+    </div>
+    <div class="popup" id="popup2">
+      <h3>Educ. Building</h3>
+      <img src="Pictures/educ building1.jpg">
+    </div>
+    <div class="popup" id="popup3">
+      <h3>Grandstand</h3>
+      <img src="Pictures/grandstand1.jpg">
+    </div>
+    <div class="popup" id="popup4">
+      <h3>Nantes Building</h3>
+      <img src="Pictures/library.jpg" alt="dog">
+    </div>
+    <div class="popup" id="popup5">
+      <h3>Science Building</h3>
+      <img src="Pictures/science building.jpg">
+    </div>
+    <div class="popup" id="popup6">
+      <h3>ICT Lab 1</h3>
+    </div>
+    <div class="popup" id="popup7">
+      <h3>ICT Lab 2</h3>
+    </div>
+    <div class="popup" id="popup8">
+      <h3>Admin Building</h3>
+      <img src="">
+    </div>
+    <div class="popup" id="popup9">
+      <h3>HUMOL</h3>
+      <img src="Pictures/humol.jpg" alt="dog">
+    </div>
+    <div class="popup" id="popup10">
+      <h3>CANTEEN</h3>
+      <p>This is a description of Building 10.</p>
+    </div>
+    <div class="popup" id="popup11">
+      <h3>HM Building</h3>
+      <img src="Pictures/HMbuilding.jpg">
+    </div>
+    <div class="popup" id="popup12">
+      <h3>GYM</h3>
+      <img src="Pictures/gym.jpg">
+    </div>
+
+    <map name="building-map">
+      <area shape="rect" coords="3,61,143,344" onclick="showBuildingPage('PUPBUILDING Data.html#EngineeringBuilding')">
+      <area shape="rect" coords="144,14,382,73" onclick="showBuildingPage('PUPBUILDING Data.html#EducBuilding')">
+      <area shape="rect" coords="263,133,346,236" onclick="showBuildingPage('PUPBUILDING Data.html#Grandstand')">
+      <area shape="rect" coords="351,90,478,244" onclick="showBuildingPage('PUPBUILDING Data.html#NantesBuilding')">
+      <area shape="rect" coords="66,377,285,441" onclick="showBuildingPage('PUPBUILDING Data.html#ScienceBuilding')">
+      <area shape="rect" coords="321,422,384,462" onclick="showBuildingPage('PUPBUILDING Data.html#ICTLab1')">
+      <area shape="rect" coords="343,375,410,413" onclick="showBuildingPage('PUPBUILDING Data.html#ICTLab2')">
+      <area shape="rect" coords="451,442,773,485" onclick="showBuildingPage('PUPBUILDING Data.html#AdmminBuilding')">
+      <area shape="rect" coords="650,290,773,434" onclick="showBuildingPage('PUPBUILDING Data.html#HUMOL')">
+      <area shape="rect" coords="627,252,720,287" onclick="showBuildingPage('PUPBUILDING Data.html#Canteen')">
+      <area shape="rect" coords="691,110,775,214" onclick="showBuildingPage('PUPBUILDING Data.html#HMBuilding')">
+      <area shape="rect" coords="628,49,746,97" onclick="showBuildingPage('PUPBUILDING Data.html#GYM')">
+    </map>
+  </div>
+
+  <script>
+    const popups = Array.from(document.querySelectorAll('.popup'));
+    const areas = Array.from(document.querySelectorAll('area'));
+
+    areas.forEach((area, index) => {
+      const popup = popups[index];
+      area.addEventListener('mouseover', (event) => showPopup(popup, event.clientX + 100, event.clientY));
+      area.addEventListener('mouseout', (event) => {
+        if (!isMouseOverPopup(event, popup)) {
+          setTimeout(() => hidePopup(popup), 0);
+        }
+      });
+
+      popup.addEventListener('mouseover', () => clearTimeout(subformTimeout));
+      popup.addEventListener('mouseout', (event) => {
+        if (!isMouseOverArea(event, area)) {
+          hidePopup(popup);
+        }
+      });
+    });
+
+    function showPopup(popup, x, y) {
+      popup.style.left = x + 'px';
+      popup.style.top = y + 'px';
+      popup.classList.add('show');
+    }
+
+    function hidePopup(popup) {
+      popup.classList.remove('show');
+    }
+
+    function isMouseOverPopup(event, popup) {
+      const { left, right, top, bottom } = popup.getBoundingClientRect();
+      return (
+        event.clientX >= left &&
+        event.clientX <= right &&
+        event.clientY >= top &&
+        event.clientY <= bottom
+      );
+    }
+
+    function isMouseOverArea(event, area) {
+      const { left, right, top, bottom } = area.getBoundingClientRect();
+      return (
+        event.clientX >= left &&
+        event.clientX <= right &&
+        event.clientY >= top &&
+        event.clientY <= bottom
+      );
+    }
+
+    function showBuildingPage(url) {
+      window.location.href = url;
+    }
+  </script>
+</body>
+</html>
